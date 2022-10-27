@@ -2,17 +2,25 @@ package org.isaacbank.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class DepositEntity extends PanacheEntityBase {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "idDeposito")
   private Integer id;
+
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "deposit")
+  private AccountEntity account;
 
   @Column
   private String descricao;
