@@ -1,5 +1,8 @@
 package org.isaacbank.controller;
 
+import org.isaacbank.dto.WithdrawDTO;
+import org.isaacbank.service.WithdrawService;
+
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -11,37 +14,34 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.isaacbank.dto.DepositDTO;
-import org.isaacbank.service.DepositService;
 
-
-@Path("/deposit")
+@Path("/withdraw")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class DepositController {
+public class WithdrawController {
   @Inject
-  private DepositService service;
+  private WithdrawService service;
 
   @GET
-  public Response listarDepositos() {
-    return Response.ok(service.listarDepositos()).build();
+  public Response listarSaques() {
+    return Response.ok(service.listarSaques()).build();
   }
 
   @GET
   @Path("/{id}")
-  public Response buscarDeposito(@PathParam("id") Integer id) {
-    return Response.ok(service.buscarDeposito(id)).build();
+  public Response buscarSaque(@PathParam("id") Integer id) {
+    return Response.ok(service.buscarSaque(id)).build();
   }
 
   @POST
-  public Response depositar(DepositDTO dto) {
-    service.depositar(dto);
+  public Response sacar(WithdrawDTO dto) {
+    service.sacar(dto);
     return Response.status(Response.Status.CREATED).build();
   }
 
   @PATCH
   @Path("/{id}")
-  public Response modificar(@PathParam("id") Integer id, DepositDTO dto) {
+  public Response modificar(@PathParam("id") Integer id, WithdrawDTO dto) {
     service.modificar(id, dto);
     return Response.ok().build();
   }
