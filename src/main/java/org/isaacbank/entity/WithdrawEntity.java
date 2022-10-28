@@ -1,5 +1,6 @@
 package org.isaacbank.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.Column;
@@ -7,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
@@ -15,12 +15,12 @@ import java.time.LocalDate;
 public class WithdrawEntity extends PanacheEntityBase {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "idSaque")
+  @Column(name = "withdrawId")
   private Integer id;
 
   @ManyToOne
-  @JoinColumn(name = "idAccount")
-  private AccountEntity account;
+  @JsonIgnore
+  public AccountEntity account;
 
   @Column
   private String descricao;
@@ -57,5 +57,13 @@ public class WithdrawEntity extends PanacheEntityBase {
 
   public void setData(LocalDate data) {
     this.data = data;
+  }
+
+  public AccountEntity getAccount() {
+    return account;
+  }
+
+  public void setAccount(AccountEntity account) {
+    this.account = account;
   }
 }

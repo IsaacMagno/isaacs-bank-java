@@ -1,6 +1,7 @@
 package org.isaacbank.service;
 
 import org.isaacbank.dto.WithdrawDTO;
+import org.isaacbank.entity.AccountEntity;
 import org.isaacbank.entity.WithdrawEntity;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -11,11 +12,17 @@ import java.util.List;
 public class WithdrawService {
   @Transactional
   public void sacar(WithdrawDTO dto) {
+    AccountEntity account = AccountEntity.findById(1);
+
     WithdrawEntity withdraw = new WithdrawEntity();
     withdraw.setDescricao(dto.getDescricao());
     withdraw.setValor(dto.getValor());
     withdraw.setData(dto.getData());
+    withdraw.setAccount(account);
     withdraw.persist();
+
+    account.withdrawals.add(withdraw);
+    account.persist();
   }
 
   @Transactional

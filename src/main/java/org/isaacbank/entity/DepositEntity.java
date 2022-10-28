@@ -1,26 +1,25 @@
 package org.isaacbank.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class DepositEntity extends PanacheEntityBase {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "idDeposito")
+  @Column(name = "depositId")
   private Integer id;
 
-  @ManyToOne(cascade = CascadeType.PERSIST)
-  @JoinColumn(name = "deposit")
-  private AccountEntity account;
+  @ManyToOne
+  @JsonIgnore
+  public AccountEntity account;
 
   @Column
   private String descricao;
@@ -57,5 +56,13 @@ public class DepositEntity extends PanacheEntityBase {
 
   public void setData(LocalDate data) {
     this.data = data;
+  }
+
+  public AccountEntity getAccount() {
+    return account;
+  }
+
+  public void setAccount(AccountEntity account) {
+    this.account = account;
   }
 }

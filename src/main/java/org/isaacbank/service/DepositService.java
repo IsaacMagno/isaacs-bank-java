@@ -4,6 +4,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import org.isaacbank.dto.DepositDTO;
+import org.isaacbank.entity.AccountEntity;
 import org.isaacbank.entity.DepositEntity;
 
 
@@ -11,11 +12,17 @@ import org.isaacbank.entity.DepositEntity;
 public class DepositService {
   @Transactional
   public void depositar(DepositDTO dto) {
+    AccountEntity account = AccountEntity.findById(1);
+
     DepositEntity deposit = new DepositEntity();
     deposit.setDescricao(dto.getDescricao());
     deposit.setValor(dto.getValor());
     deposit.setData(dto.getData());
+    deposit.setAccount(account);
     deposit.persist();
+
+    account.deposits.add(deposit);
+    account.persist();
   }
 
   @Transactional

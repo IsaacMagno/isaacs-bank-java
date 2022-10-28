@@ -1,6 +1,8 @@
 package org.isaacbank.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,51 +11,52 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class AccountEntity extends PanacheEntityBase {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "idAccount")
+  @Column(name = "accountId")
   private Integer id;
 
-  @OneToMany(mappedBy= "accountEntity")
-  public List<DepositEntity> deposit;
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  public List<DepositEntity> deposits = new ArrayList<DepositEntity>();
 
-  @OneToMany(mappedBy= "withdraw", cascade = CascadeType.ALL, orphanRemoval = true)
-  public Set<WithdrawEntity> withdraw;
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
+  public List<WithdrawEntity> withdrawals = new ArrayList<WithdrawEntity>();
 
-  private double saldo;
+  @Column
+  String nome;
 
   public Integer getId() {
     return id;
   }
 
-  public List<DepositEntity> getDeposit() {
-    return deposit;
+  public String getNome() {
+    return nome;
   }
 
-  public void setDeposit(List<DepositEntity> deposit) {
-    this.deposit = deposit;
+  public void setNome(String nome) {
+    this.nome = nome;
   }
 
-  public Set<WithdrawEntity> getWithdraw() {
-    return withdraw;
+  public List<DepositEntity> getDeposits() {
+    return deposits;
   }
 
-  public void setWithdraw(Set<WithdrawEntity> withdraw) {
-    this.withdraw = withdraw;
+  public void setDeposits(List<DepositEntity> deposits) {
+    this.deposits = deposits;
   }
 
-  public double getSaldo() {
-    return saldo;
+  public List<WithdrawEntity> getWithdrawals() {
+    return withdrawals;
   }
 
-  public void setSaldo(double saldo) {
-    this.saldo = saldo;
+  public void setWithdrawals(List<WithdrawEntity> withdrawals) {
+    this.withdrawals = withdrawals;
   }
 }
