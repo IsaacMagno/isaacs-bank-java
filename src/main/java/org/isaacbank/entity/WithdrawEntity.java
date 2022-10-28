@@ -2,26 +2,23 @@ package org.isaacbank.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 @Entity
 public class WithdrawEntity extends PanacheEntityBase {
+  @ManyToOne
+  @JsonIgnore
+  public AccountEntity account;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "withdrawId")
   private Integer id;
-
-  @ManyToOne
-  @JsonIgnore
-  public AccountEntity account;
-
   @Column
   private String descricao;
 

@@ -1,17 +1,16 @@
 package org.isaacbank.dto;
 
+import java.util.List;
+import org.isaacbank.entity.BillEntity;
 import org.isaacbank.entity.DepositEntity;
 import org.isaacbank.entity.WithdrawEntity;
 
-import java.util.List;
-import java.util.Set;
-
 public class AccountDTO {
-  String nome;
-
   public List<DepositEntity> deposits;
-
   public List<WithdrawEntity> withdrawals;
+
+  public List<BillEntity> bills;
+  String nome;
 
   public String getNome() {
     return nome;
@@ -35,5 +34,13 @@ public class AccountDTO {
 
   public void setWithdrawals(List<WithdrawEntity> withdrawals) {
     this.withdrawals = withdrawals;
+  }
+
+  public List<BillEntity> getBills() {
+    return bills;
+  }
+
+  public void setBills(List<BillEntity> bills) {
+    this.bills = bills;
   }
 }

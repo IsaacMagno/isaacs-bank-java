@@ -1,12 +1,11 @@
 package org.isaacbank.service;
 
+import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import org.isaacbank.dto.WithdrawDTO;
 import org.isaacbank.entity.AccountEntity;
 import org.isaacbank.entity.WithdrawEntity;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
-import java.util.List;
 
 @ApplicationScoped
 public class WithdrawService {

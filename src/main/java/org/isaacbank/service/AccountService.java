@@ -1,10 +1,9 @@
 package org.isaacbank.service;
 
+import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import org.isaacbank.dto.AccountDTO;
 import org.isaacbank.entity.AccountEntity;
-
-import javax.enterprise.context.ApplicationScoped;
-import java.util.List;
 
 @ApplicationScoped
 public class AccountService {

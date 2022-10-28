@@ -12,38 +12,38 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import org.isaacbank.dto.DepositDTO;
-import org.isaacbank.service.DepositService;
+import org.isaacbank.dto.BillDTO;
+import org.isaacbank.service.BillService;
 
-
-@Path("/deposit")
+@Path("/bill")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class DepositController {
+public class BillController {
+
   @Inject
-  private DepositService service;
+  private BillService service;
 
   @GET
-  public Response listarDepositos() {
-    return Response.ok(service.listarDepositos()).build();
+  public Response listarContas() {
+    return Response.ok(service.listarContas()).build();
   }
 
   @GET
   @Path("/{id}")
-  public Response buscarDeposito(@PathParam("id") Integer id) {
-    return Response.ok(service.buscarDeposito(id)).build();
+  public Response selecionarConta(@PathParam("id") Integer id) {
+    return Response.ok(service.selecionarConta(id)).build();
   }
 
   @POST
-  public Response depositar(DepositDTO dto) {
-    service.depositar(dto);
+  public Response adicionarConta(BillDTO dto) {
+    service.adicionarConta(dto);
     return Response.status(Status.CREATED).build();
   }
 
   @PATCH
   @Path("/{id}")
-  public Response modificar(@PathParam("id") Integer id, DepositDTO dto) {
-    service.modificar(id, dto);
+  public Response atualizarConta(@PathParam("id") Integer id, BillDTO dto) {
+    service.atualizarConta(id, dto);
     return Response.ok().build();
   }
 

@@ -12,15 +12,13 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class DepositEntity extends PanacheEntityBase {
+  @ManyToOne
+  @JsonIgnore
+  public AccountEntity account;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "depositId")
   private Integer id;
-
-  @ManyToOne
-  @JsonIgnore
-  public AccountEntity account;
-
   @Column
   private String descricao;
 

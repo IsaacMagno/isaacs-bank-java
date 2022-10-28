@@ -1,9 +1,8 @@
 package org.isaacbank.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,25 +11,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class AccountEntity extends PanacheEntityBase {
+
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval =
+      true, fetch = FetchType.EAGER)
+  public List<DepositEntity> deposits = new ArrayList<DepositEntity>();
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval =
+      true, fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
+  public List<WithdrawEntity> withdrawals = new ArrayList<WithdrawEntity>();
+
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval =
+      true, fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
+  public List<BillEntity> bills = new ArrayList<BillEntity>();
+  @Column
+  String nome;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "accountId")
   private Integer id;
-
-  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-  public List<DepositEntity> deposits = new ArrayList<DepositEntity>();
-
-  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-  @Fetch(value = FetchMode.SUBSELECT)
-  public List<WithdrawEntity> withdrawals = new ArrayList<WithdrawEntity>();
-
-  @Column
-  String nome;
 
   public Integer getId() {
     return id;
@@ -58,5 +62,13 @@ public class AccountEntity extends PanacheEntityBase {
 
   public void setWithdrawals(List<WithdrawEntity> withdrawals) {
     this.withdrawals = withdrawals;
+  }
+
+  public List<BillEntity> getBills() {
+    return bills;
+  }
+
+  public void setBills(List<BillEntity> bills) {
+    this.bills = bills;
   }
 }
