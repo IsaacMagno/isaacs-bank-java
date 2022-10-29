@@ -29,6 +29,13 @@ public class AccountEntity extends PanacheEntityBase {
       true, fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   public List<BillEntity> bills = new ArrayList<BillEntity>();
+
+  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval =
+      true, fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
+  public List<FutureExpensesEntity> expenses =
+      new ArrayList<FutureExpensesEntity>();
+
   @Column
   String nome;
   @Id
@@ -70,5 +77,14 @@ public class AccountEntity extends PanacheEntityBase {
 
   public void setBills(List<BillEntity> bills) {
     this.bills = bills;
+  }
+
+  public List<FutureExpensesEntity> getExpenses() {
+    return expenses;
+  }
+
+  public void setExpenses(
+      List<FutureExpensesEntity> expenses) {
+    this.expenses = expenses;
   }
 }
