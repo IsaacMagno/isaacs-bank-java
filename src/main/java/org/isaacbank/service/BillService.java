@@ -11,14 +11,6 @@ import org.isaacbank.entity.BillEntity;
 @ApplicationScoped
 public class BillService {
 
-  public List<BillEntity> listarContas() {
-    return BillEntity.listAll();
-  }
-
-  public BillEntity selecionarConta(Integer id) {
-    return BillEntity.findById(id);
-  }
-
   @Transactional
   public void adicionarConta(BillDTO dto) {
     AccountEntity account = AccountEntity.findById(1);
@@ -59,8 +51,21 @@ public class BillService {
 
   @Transactional
   public void deletar(Integer id) {
-    BillEntity.deleteById(id);
+    BillEntity bill = BillEntity.findById(id);
+    if (bill != null) {
+      bill.account.bills.remove(bill);
+      bill.delete();
+    }
   }
+
+  public List<BillEntity> listarContas() {
+    return BillEntity.listAll();
+  }
+
+  public BillEntity selecionarConta(Integer id) {
+    return BillEntity.findById(id);
+  }
+
 
   public double calcularParcelas(double valor, int parcelas) {
     return  valor / parcelas;

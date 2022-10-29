@@ -36,6 +36,11 @@ public class WithdrawService {
   @Transactional
   public void deletar(Integer id) {
     WithdrawEntity.deleteById(id);
+    WithdrawEntity withdraw = WithdrawEntity.findById(id);
+    if (withdraw != null) {
+      withdraw.account.withdrawals.remove(withdraw);
+      withdraw.delete();
+    }
   }
 
   public List<WithdrawEntity> listarSaques() {

@@ -36,7 +36,11 @@ public class DepositService {
 
   @Transactional
   public void deletar(Integer id) {
-    DepositEntity.deleteById(id);
+    DepositEntity deposit = DepositEntity.findById(id);
+    if (deposit != null) {
+      deposit.account.deposits.remove(deposit);
+      deposit.delete();
+    }
   }
 
   public List<DepositEntity> listarDepositos() {

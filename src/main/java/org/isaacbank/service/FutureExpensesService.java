@@ -9,13 +9,6 @@ import org.isaacbank.entity.FutureExpensesEntity;
 
 @ApplicationScoped
 public class FutureExpensesService {
-  public List<FutureExpensesEntity> listarDespesasFuturas() {
-    return FutureExpensesEntity.listAll();
-  }
-
-  public FutureExpensesEntity selecionarDespesa(Integer id) {
-    return FutureExpensesEntity.findById(id);
-  }
 
   @Transactional
   public void adicionarDespesa(FutureExpensesDTO dto) {
@@ -45,6 +38,19 @@ public class FutureExpensesService {
 
   @Transactional
   public void deletar(Integer id) {
-    FutureExpensesEntity.deleteById(id);
+    FutureExpensesEntity expense = FutureExpensesEntity.findById(id);
+    if (expense != null) {
+      expense.account.expenses.remove(expense);
+      expense.delete();
+    }
   }
+
+  public List<FutureExpensesEntity> listarDespesasFuturas() {
+    return FutureExpensesEntity.listAll();
+  }
+
+  public FutureExpensesEntity selecionarDespesa(Integer id) {
+    return FutureExpensesEntity.findById(id);
+  }
+
 }
