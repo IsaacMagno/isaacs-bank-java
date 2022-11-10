@@ -5,7 +5,9 @@ import java.time.LocalDate;
 public class BillDTO {
   private String nome;
 
-  private double valor;
+  private double valorTotal;
+
+  private double valorPago;
 
   private double valorParcelas;
 
@@ -21,14 +23,6 @@ public class BillDTO {
 
   public void setNome(String nome) {
     this.nome = nome;
-  }
-
-  public double getValor() {
-    return valor;
-  }
-
-  public void setValor(double valor) {
-    this.valor = valor;
   }
 
   public double getValorParcelas() {
@@ -61,5 +55,21 @@ public class BillDTO {
 
   public void setDataFinal(LocalDate dataFinal) {
     this.dataFinal = dataFinal;
+  }
+
+  public double getValorTotal() {
+    return valorTotal;
+  }
+
+  public void setValorTotal(double valorTotal) {
+    this.valorTotal = valorTotal;
+  }
+
+  public double getValorPago() {
+    return valorPago;
+  }
+
+  public void setValorPago(double valorPago) {
+    this.valorPago = valorPago;
   }
 }

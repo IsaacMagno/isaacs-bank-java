@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 public class DepositDTO {
   private String descricao;
+
+  private String categoria;
+
   private double valor;
   private LocalDate data;
 
@@ -29,5 +32,13 @@ public class DepositDTO {
 
   public void setData(LocalDate data) {
     this.data = data;
+  }
+
+  public String getCategoria() {
+    return categoria;
+  }
+
+  public void setCategoria(String categoria) {
+    this.categoria = categoria;
   }
 }

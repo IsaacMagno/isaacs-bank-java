@@ -30,11 +30,11 @@
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-h2</artifactId>
+      <artifactId>quarkus-hibernate-orm-panache</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-orm-panache</artifactId>
+      <artifactId>quarkus-container-image-docker</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -47,6 +47,14 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-agroal</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

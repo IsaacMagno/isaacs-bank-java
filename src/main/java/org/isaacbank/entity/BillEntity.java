@@ -12,31 +12,25 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class BillEntity extends PanacheEntityBase {
-  @ManyToOne
-  @JsonIgnore
-  public AccountEntity account;
+  @ManyToOne @JsonIgnore public AccountEntity account;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;
 
-  @Column
-  private String nome;
+  @Column private String nome;
 
-  @Column
-  private double valor;
+  @Column private double valorTotal;
 
-  @Column
-  private double valorParcelas;
+  @Column private double valorPago;
 
-  @Column
-  private int numeroParcelas;
+  @Column private double valorParcelas;
 
-  @Column
-  private LocalDate dataInicio;
+  @Column private int numeroParcelas;
 
-  @Column
-  private LocalDate dataFinal;
+  @Column private LocalDate dataInicio;
 
+  @Column private LocalDate dataFinal;
 
   public Integer getId() {
     return id;
@@ -48,14 +42,6 @@ public class BillEntity extends PanacheEntityBase {
 
   public void setNome(String nome) {
     this.nome = nome;
-  }
-
-  public double getValor() {
-    return valor;
-  }
-
-  public void setValor(double valor) {
-    this.valor = valor;
   }
 
   public double getValorParcelas() {
@@ -96,5 +82,21 @@ public class BillEntity extends PanacheEntityBase {
 
   public void setAccount(AccountEntity account) {
     this.account = account;
+  }
+
+  public double getValorTotal() {
+    return valorTotal;
+  }
+
+  public void setValorTotal(double valorTotal) {
+    this.valorTotal = valorTotal;
+  }
+
+  public double getValorPago() {
+    return valorPago;
+  }
+
+  public void setValorPago(double valorPago) {
+    this.valorPago += valorPago;
   }
 }

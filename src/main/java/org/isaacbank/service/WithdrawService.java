@@ -1,5 +1,6 @@
 package org.isaacbank.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
@@ -15,21 +16,32 @@ public class WithdrawService {
 
     WithdrawEntity withdraw = new WithdrawEntity();
     withdraw.setDescricao(dto.getDescricao());
+    withdraw.setCategoria(dto.getCategoria());
     withdraw.setValor(dto.getValor());
-    withdraw.setData(dto.getData());
+    withdraw.setData(LocalDate.now());
     withdraw.setAccount(account);
     withdraw.persist();
 
     account.withdrawals.add(withdraw);
+    account.setSaldo(-dto.getValor());
     account.persist();
   }
 
   @Transactional
   public void modificar(Integer id, WithdrawDTO dto) {
+    AccountEntity account = AccountEntity.findById(1);
     WithdrawEntity withdraw = WithdrawEntity.findById(id);
-    withdraw.setDescricao(dto.getDescricao());
+
+    if (dto.getValor() > withdraw.getValor()) {
+      account.setSaldo(-(dto.getValor() - withdraw.getValor()));
+    }
+
+    if (dto.getValor() < withdraw.getValor()) {
+      account.setSaldo(withdraw.getValor() - dto.getValor());
+    }
+
     withdraw.setValor(dto.getValor());
-    withdraw.setData(dto.getData());
+    withdraw.setData(LocalDate.now());
     withdraw.persist();
   }
 

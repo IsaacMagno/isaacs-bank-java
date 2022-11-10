@@ -10,7 +10,9 @@ public class AccountDTO {
   public List<WithdrawEntity> withdrawals;
 
   public List<BillEntity> bills;
-  String nome;
+  public String nome;
+
+  public Double saldo;
 
   public String getNome() {
     return nome;

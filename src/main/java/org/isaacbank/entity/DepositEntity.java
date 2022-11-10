@@ -23,6 +23,9 @@ public class DepositEntity extends PanacheEntityBase {
   private String descricao;
 
   @Column
+  private String categoria;
+
+  @Column
   private double valor;
 
   @Column
@@ -62,5 +65,13 @@ public class DepositEntity extends PanacheEntityBase {
 
   public void setAccount(AccountEntity account) {
     this.account = account;
+  }
+
+  public String getCategoria() {
+    return categoria;
+  }
+
+  public void setCategoria(String categoria) {
+    this.categoria = categoria;
   }
 }

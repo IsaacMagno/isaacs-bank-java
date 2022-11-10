@@ -12,21 +12,20 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class WithdrawEntity extends PanacheEntityBase {
-  @ManyToOne
-  @JsonIgnore
-  public AccountEntity account;
+  @ManyToOne @JsonIgnore public AccountEntity account;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "withdrawId")
   private Integer id;
-  @Column
-  private String descricao;
 
-  @Column
-  private double valor;
+  @Column private String descricao;
 
-  @Column
-  private LocalDate data;
+  @Column private String categoria;
+
+  @Column private double valor;
+
+  @Column private LocalDate data;
 
   public Integer getId() {
     return id;
@@ -62,5 +61,13 @@ public class WithdrawEntity extends PanacheEntityBase {
 
   public void setAccount(AccountEntity account) {
     this.account = account;
+  }
+
+  public String getCategoria() {
+    return categoria;
+  }
+
+  public void setCategoria(String categoria) {
+    this.categoria = categoria;
   }
 }
